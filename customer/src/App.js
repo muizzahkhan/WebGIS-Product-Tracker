@@ -1,4 +1,5 @@
-import Header from "./components/Header";
+import Header from './components/Header';
+import HomeScreen from './screens/HomeScreen';
 
 const App = () => {
   return (
@@ -6,7 +7,7 @@ const App = () => {
       <Header />
 
       <main>
-      
+      <HomeScreen />
 
       </main>
 

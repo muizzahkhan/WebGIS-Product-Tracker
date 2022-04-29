@@ -7,3 +7,24 @@
 i {
     margin-right: 5px;
 }
+
+.top-space, .side-space {
+    width: 80%;
+    margin-top: 50px;
+    margin-left: 5px;
+}
+
+.side-space {
+    width: 20%;
+    margin-left: 0px;
+}
+
+.leaflet-container {
+    width: 100wh; 
+    height: 80vh;
+  }
+
+.rowC {
+    display:flex; 
+    flex-direction:row
+}
