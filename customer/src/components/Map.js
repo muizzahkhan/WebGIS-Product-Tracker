@@ -18,7 +18,7 @@ const Map = ({data}) => {
 
       <LayersControl position="topright">
 
-        <LayersControl.Overlay checked name="Terrain View">
+        <LayersControl.Overlay checked name="Default View">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -26,14 +26,8 @@ const Map = ({data}) => {
 
         <LayersControl.Overlay name="Satellite View">
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        </LayersControl.Overlay>
-
-        <LayersControl.Overlay name="XYZ View">
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            //attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" subdomains={['mt1','mt2','mt3']} />
         </LayersControl.Overlay>
           
       </LayersControl>

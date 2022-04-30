@@ -1,11 +1,12 @@
 import {Nav, Navbar, Container, NavDropdown} from 'react-bootstrap'
+import {LinkContainer} from 'react-router-bootstrap'
 
 const Header = () => {
   return (
     <header>
         <Navbar bg='dark' variant='dark' expand='lg'>
             <Container>
-              <Navbar.Brand className='center-navbar' href='/'>Product Tracker</Navbar.Brand>
+              <LinkContainer to='/'><Navbar.Brand className='center-navbar' href='/'>Product Tracker</Navbar.Brand></LinkContainer>
               <Navbar.Toggle aria-controls='basic-navbar-nav' />
               <Navbar.Collapse id='basic-navbar-nav'>
 
@@ -17,7 +18,7 @@ const Header = () => {
               </Nav>
 
               <Nav className='ms-auto'>
-                <Nav.Link href='/login'><i className='fas fa-user'></i>Login as Store Owner</Nav.Link>
+                <LinkContainer to='/login'><Nav.Link><i className='fas fa-user'></i>Login as Store Owner</Nav.Link></LinkContainer>
               </Nav>
 
               </Navbar.Collapse>
