@@ -1,7 +1,8 @@
 import Map from '../components/Map'
 import geojson from '../sample.json'
+import AdmControl from '../components/AdmControl'
 
-const HomeScreen = () => {
+const AdminScreen = () => {
   return (
     <>
     <Map data={geojson} />
@@ -9,4 +10,4 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen
+export default AdminScreen
