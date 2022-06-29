@@ -10,7 +10,7 @@ import {useLocation} from 'react-router-dom'
 import useGeoLoc from './useGeoLoc'
 import BarChart from './BarChart'
 
-const Map = ({data}) => {
+const Map = ({ownerData, storeData}) => {
 
   const [owner, setOwner] = useState([{"owner_id":'',"username":"","password":"","store_exists":''}])
   useEffect(() => {
@@ -18,11 +18,12 @@ const Map = ({data}) => {
       return response.json()
     }).then(ownerData => {setOwner(ownerData)})}, [])
 
+  const [dyData, setdyData] = useState([{"store_id":'',"owner_id":'',"quantity":0,"price_per_unit":0,"name":"","geometry":"","st_x":0,"st_y":0}])
   const [store, setStore] = useState([{"store_id":'',"owner_id":'',"quantity":0,"price_per_unit":0,"name":"","geometry":"","st_x":0,"st_y":0}])
   useEffect(() => {
     fetch('http://localhost:5000/store').then(response => {
       return response.json()
-    }).then(storeData => {setStore(storeData)})}, [])
+    }).then(storeData => { setStore(storeData); setdyData(storeData) })}, [])
 
   const [store5, setStore5] = useState([{"store_id":'',"owner_id":'',"quantity":0,"price_per_unit":0,"name":"","geometry":"","st_x":0,"st_y":0}])
   useEffect(() => {
@@ -34,10 +35,10 @@ const Map = ({data}) => {
   const loc = useGeoLoc()
 
   const [buffer, setBuffer] = useState(0)
-  const [dyData, setdyData] = useState(data)
 
-  const callbackBuffer = (bufferSize) => {setBuffer(Number(bufferSize))}
-  const callback = (filterData) => {setdyData(filterData)}
+  const callbackBuffer = (bufferSize) => { setBuffer(Number(bufferSize)) }
+  const callback = (filterData) => { setdyData(filterData) }
+  const clearFilterCB = () => { setdyData(store) }
 
   const fillBlueOptions = { fillColor: 'blue' }
 
@@ -75,8 +76,7 @@ const Map = ({data}) => {
       ],
     })
   },[store5])
-  console.log(userData)
-  
+
   return (
       <div className='rowC'>
       
@@ -108,20 +108,23 @@ const Map = ({data}) => {
           </LayersControl>
 
           {loc.loaded && !loc.error && (<>
-              <Marker icon={customMeIcon} position={[loc.coordinates.lat, loc.coordinates.lng]}></Marker>
+              <Marker icon={customMeIcon} position={[loc.coordinates.lat, loc.coordinates.lng]}>
+                <Popup>Me</Popup>
+              </Marker>
               <Circle center={[loc.coordinates.lat, loc.coordinates.lng]} pathOptions={fillBlueOptions} radius={buffer} />
           </>)}
-
-          {store.map(pts => (
+          
+          {dyData.map(pts => (
           <Marker key={pts.store_id} position={[pts.st_y, pts.st_x]} icon={customMarkerIcon} >
-            <Popup>Name: {pts.name} <br></br> Quantity:{pts.quantity} <br></br> Price:{pts.price_per_unit}</Popup> </Marker> 
+            <Popup closeButton={false}>Name: {pts.name} <br></br> Quantity:{pts.quantity} <br></br> Price:{pts.price_per_unit}</Popup> </Marker> 
           ))}
 
         </MapContainer> }
       </Card>
 
       <Card className='side-space'>
-      {location.pathname==='/' ? <CustControl cb={callback} cbB={callbackBuffer} cbS={cbShow} data={data} /> : location.pathname==='/Admin/' ? <AdmControl /> : null}
+      {location.pathname==='/' ? <CustControl cb={callback} cbB={callbackBuffer} cbS={cbShow} cF={clearFilterCB} /> 
+      : location.pathname==='/Admin/' ? <AdmControl owner={ownerData} store={storeData} mapStore={store} /> : null}
       </Card>
 
       </div>
