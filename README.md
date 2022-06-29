@@ -12,6 +12,6 @@
 
 - First, run the development server with `npm run dev`.
 
-- Navigate to [http://localhost:3000](http://localhost:3000) on your browser.
+- Navigate to [http://localhost:5000](http://localhost:5000) on your browser.
 
 - Start editing the page by modifying `customer/src/App.js`. The page auto-updates as you edit the file.
